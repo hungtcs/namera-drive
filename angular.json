@@ -37,7 +37,7 @@
       "projectType": "application",
       "root": "",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "nme",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -47,6 +47,7 @@
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
             "tsConfig": "tsconfig.app.json",
+            "extractCss": true,
             "aot": true,
             "assets": [
               "src/favicon.ico",
@@ -92,6 +93,7 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
+            "proxyConfig": "proxy.config.js",
             "browserTarget": "namera-drive-webapp:build"
           },
           "configurations": {

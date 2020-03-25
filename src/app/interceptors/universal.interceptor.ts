@@ -14,12 +14,19 @@ export class UniversalInterceptor implements HttpInterceptor {
   public intercept(request: HttpRequest<any>, next: HttpHandler) {
     let serverRequest: HttpRequest<any> = request;
     if(this.request) {
+      const token = this.request.cookies?.token;
+
       let newUrl = `${this.request.protocol}://${this.request.get('host')}`;
-      if (!request.url.startsWith('/')) {
+      if(!request.url.startsWith('/')) {
         newUrl += '/';
       }
       newUrl += request.url;
-      serverRequest = request.clone({ url: newUrl });
+      serverRequest = request.clone({
+        url: newUrl,
+        setHeaders: {
+          Authorization: `Bearer ${ token }`,
+        },
+      });
     }
     return next.handle(serverRequest);
   }

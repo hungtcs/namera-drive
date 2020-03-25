@@ -1,0 +1,6 @@
+<div class="nme-breadcrumb-container">
+  <section *ngFor="let breadcrumb of breadcrumbs; index as index; last as last;">
+    <button mat-button [disableRipple]="last" (click)="onBreadcrumbClick(index);">{{ breadcrumb }}</button>
+    <mat-icon *ngIf="!last">navigate_next</mat-icon>
+  </section>
+</div>

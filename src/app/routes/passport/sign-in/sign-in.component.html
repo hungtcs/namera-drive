@@ -1,0 +1,45 @@
+<div class="background"></div>
+
+<main>
+  <mat-card>
+    <section class="form-section">
+      <p class="welcome">Welcom to</p>
+      <h2><span>N<span style="vertical-align: super;">+</span></span> Namera Drive</h2>
+      <p class="description">登录获得更加使用体检</p>
+      <form #form="ngForm" (ngSubmit)="onFormSubmit();">
+        <mat-form-field appearance="outline">
+          <mat-label>您的账号</mat-label>
+          <input matInput required type="text" name="username" autocomplete="username" [(ngModel)]="model.username" />
+          <mat-hint *ngIf="form.controls.username?.dirty && form.controls.username?.errors?.required">请输入帐号</mat-hint>
+          <mat-hint *ngIf="invalidPassword">您输入的密码错误或与帐号不匹配</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>您的密码</mat-label>
+          <input matInput required type="password" name="password" autocomplete="current-password" [(ngModel)]="model.password" />
+          <mat-hint *ngIf="form.controls.password?.dirty && form.controls.password?.errors?.required">请输入密码</mat-hint>
+        </mat-form-field>
+        <button mat-raised-button type="submit" color="primary" class="sign-in-button" [disabled]=" submitting">
+          {{ submitting ? '正在登录...' : '登录' }}
+        </button>
+      </form>
+      <p class="no-account">没有帐号？<a routerLink="../sign-up">立即注册</a></p>
+    </section>
+    <section class="intro-section">
+
+    </section>
+  </mat-card>
+</main>
+
+<footer>
+  <section>
+    <span><a target="_blank" href="https://github.com/hungtcs">获得源代码</a></span>
+    <span><a target="_blank" href="mailto:<鸿则>hungtcs@163.com">联系作者</a></span>
+  </section>
+  <section>
+    <span>Powered by <a target="_blank" href="https://material.angular.io">Angular Material</a></span>
+    <span>Photo by
+      <a href="https://unsplash.com/@sedky?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Mhmd Sedky</a>
+      on <a href="https://unsplash.com/t/wallpapers?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+    </span>
+  </section>
+</footer>

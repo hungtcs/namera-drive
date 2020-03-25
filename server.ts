@@ -1,10 +1,14 @@
+import 'reflect-metadata';
 import 'zone.js/dist/zone-node';
 import express from 'express';
+import cookieParser from 'cookie-parser';
+import proxyOptions from './proxy.config';
 import { join } from 'path';
 import { existsSync } from 'fs';
 import { APP_BASE_HREF } from '@angular/common';
 import { AppServerModule } from './src/main.server';
 import { ngExpressEngine } from '@nguniversal/express-engine';
+import { createProxyMiddleware, Options } from 'http-proxy-middleware';
 
 export * from './src/main.server';
 
@@ -16,10 +20,24 @@ export function app() {
 
   server.engine('html', ngExpressEngine({
     bootstrap: AppServerModule,
+    providers: [
+
+    ],
   }));
 
   server.set('views', distFolder);
   server.set('view engine', 'html');
+
+  server.use(cookieParser());
+
+  (proxyOptions as Array<Options&{ context: Array<string> }>).forEach(options => {
+    options.context.forEach(context => {
+      server.use(
+        context,
+        createProxyMiddleware(context, { ...options }),
+      );
+    });
+  });
 
   // Example Express Rest API endpoints
   // app.get('/api/**', (req, res) => { });

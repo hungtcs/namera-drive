@@ -1,0 +1,44 @@
+<mat-toolbar color="primary" class="mat-elevation-z4">
+  <mat-toolbar-row>
+    <section class="mat-toolbar-section mat-toolbar-section--main">
+      <button mat-icon-button class="sidenav-toggle-button" (click)="sidenav.toggle();">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <span>
+        Namera Drive
+      </span>
+    </section>
+    <section></section>
+    <section class="mat-toolbar-section mat-toolbar-section--extra">
+      <button mat-icon-button class="sidenav-toggle-button" [matMenuTriggerFor]="notificationMenu">
+        <mat-icon svgIcon="notification"></mat-icon>
+        <mat-menu #notificationMenu="matMenu">
+          <ng-template matMenuContent>
+            <span>未实现</span>
+          </ng-template>
+        </mat-menu>
+      </button>
+      <button mat-icon-button class="sidenav-toggle-button" [matMenuTriggerFor]="helpMenu">
+        <mat-icon>help_outline</mat-icon>
+        <mat-menu #helpMenu="matMenu">
+          <button mat-menu-item>帮助</button>
+          <a mat-menu-item href="mailto:Namera Drive Developer<hungtcs@163.com>">联系开发者</a>
+        </mat-menu>
+      </button>
+    </section>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav mode="side" [opened]="true">
+    <mat-nav-list>
+      <mat-list-item routerLink="/explorer">
+        <mat-icon mat-list-icon>cloud_queue</mat-icon>
+        <a matLine>我的云端硬盘</a>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

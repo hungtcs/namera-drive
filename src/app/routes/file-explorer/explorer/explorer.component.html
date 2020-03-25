@@ -1,0 +1,14 @@
+<nme-breadcrumb [dirpath]="dirpath" (breadcrumbClick)="onBreadcrumbClick($event);"></nme-breadcrumb>
+
+<div style="height: 1px; margin: 0px 1rem; background-color: #000; opacity: 0.256;"></div>
+
+<main class="files">
+  <mat-grid-list cols="5" gutterSize="1rem">
+    <mat-grid-tile *ngFor="let file of files;">
+      <mat-card (click)="onFileClick(file);">
+        <img mat-card-image src="/assets/wallpapers/01.jpg" />
+        <mat-card-content>{{ file.name }}</mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</main>

@@ -1,0 +1,42 @@
+
+:host {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  flex-flow: column nowrap;
+  > mat-toolbar {
+    flex: 0 0 auto;
+    z-index: 4;
+    > mat-toolbar-row {
+      > .mat-toolbar-section {
+        flex: 1 1 auto;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        &.mat-toolbar-section--main  {
+          > .sidenav-toggle-button {
+            margin-right: 1rem;
+          }
+        }
+        &.mat-toolbar-section--extra {
+          flex: 0 0 auto;
+          justify-content: flex-end;
+          > [mat-icon-button] + [mat-icon-button] {
+            margin-left: 0.5rem;
+          }
+        }
+      }
+    }
+  }
+  > mat-sidenav-container {
+    flex: 1 1 auto;
+    z-index: 0;
+    > mat-sidenav {
+      width: 250px;
+      // [mat-list-icon] {
+      //   margin-right: 0.5rem;
+      // }
+    }
+  }
+}
