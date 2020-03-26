@@ -1,0 +1,34 @@
+<ng-container *ngIf="isFile">
+  <mat-card
+    mat-ripple>
+    <div class="nme-file__conver"></div>
+    <mat-card-content
+      [matTooltip]="file.name"
+      [matTooltipShowDelay]="1000">
+      <mat-icon>description</mat-icon>
+      <span>{{ file?.name }}</span>
+    </mat-card-content>
+    <mat-checkbox
+      [checked]="selected"
+      (click)="$event.stopPropagation();"
+      (change)="selectedChange.emit($event.checked);">
+    </mat-checkbox>
+  </mat-card>
+</ng-container>
+
+<ng-container *ngIf="isFolder">
+  <mat-card
+    mat-ripple>
+    <mat-card-content
+      [matTooltip]="file.name"
+      [matTooltipShowDelay]="1000">
+      <mat-icon>folder</mat-icon>
+      <span>{{ file?.name }}</span>
+    </mat-card-content>
+    <mat-checkbox
+      [checked]="selected"
+      (click)="$event.stopPropagation();"
+      (change)="selectedChange.emit($event.checked);">
+    </mat-checkbox>
+  </mat-card>
+</ng-container>

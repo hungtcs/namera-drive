@@ -10,31 +10,50 @@
     </section>
     <section></section>
     <section class="mat-toolbar-section mat-toolbar-section--extra">
-      <button mat-icon-button class="sidenav-toggle-button" [matMenuTriggerFor]="notificationMenu">
-        <mat-icon svgIcon="notification"></mat-icon>
-        <mat-menu #notificationMenu="matMenu">
+      <button mat-icon-button
+        [matMenuTriggerFor]="notificationMenu">
+        <mat-icon
+          svgIcon="notification"
+          matBadge="2"
+          matBadgeColor="warn"
+          matBadgePosition="above after"
+          [matBadgeOverlap]="true">
+        </mat-icon>
+        <mat-menu #notificationMenu="matMenu" xPosition="before" yPosition="below">
           <ng-template matMenuContent>
             <span>未实现</span>
           </ng-template>
         </mat-menu>
       </button>
-      <button mat-icon-button class="sidenav-toggle-button" [matMenuTriggerFor]="helpMenu">
-        <mat-icon>help_outline</mat-icon>
-        <mat-menu #helpMenu="matMenu">
-          <button mat-menu-item>帮助</button>
-          <a mat-menu-item href="mailto:Namera Drive Developer<hungtcs@163.com>">联系开发者</a>
-        </mat-menu>
-      </button>
+      <div class="user-xxxxxx">
+        <button mat-icon-button>
+          <mat-icon>apps</mat-icon>
+        </button>
+        <nme-avatar email="hungtcs@163.com" matRipple></nme-avatar>
+      </div>
     </section>
   </mat-toolbar-row>
 </mat-toolbar>
 
 <mat-sidenav-container>
-  <mat-sidenav #sidenav mode="side" [opened]="true">
+  <mat-sidenav #sidenav [mode]="sidenavMode" [opened]="sidenavOpened">
     <mat-nav-list>
       <mat-list-item routerLink="/explorer">
         <mat-icon mat-list-icon>cloud_queue</mat-icon>
         <a matLine>我的云端硬盘</a>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon class="material-icons--outlined">share</mat-icon>
+        <a matLine>与我共享</a>
+      </mat-list-item>
+      <mat-list-item>
+        <mat-icon mat-list-icon class="material-icons--outlined">star_border</mat-icon>
+        <a matLine>已加星标</a>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <mat-icon mat-list-icon class="material-icons--outlined">delete</mat-icon>
+        <a matLine>回收站</a>
       </mat-list-item>
     </mat-nav-list>
   </mat-sidenav>

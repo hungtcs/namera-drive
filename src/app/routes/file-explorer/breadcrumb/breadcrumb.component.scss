@@ -1,19 +1,27 @@
 
 :host {
   width: 100%;
-  padding: 0.5rem 1rem;
-  display: block;
+  display: flex;
+  overflow: hidden;
+  flex-flow: row nowrap;
   box-sizing: border-box;
+  align-items: center;
   > .nme-breadcrumb-container {
     display: inline-flex;
     flex-flow: row nowrap;
-    min-width: 100%;
+    // min-width: 100%;
     white-space: nowrap;
     > section {
       flex: 0 0 auto;
       display: flex;
       flex-flow: row nowrap;
       align-items: center;
+      .breadcrumb-text {
+        width: 100px;
+        overflow: hidden;
+        display: inline-block;
+        text-overflow: ellipsis;
+      }
       > mat-icon {
         color: rgba($color: #000000, $alpha: 0.512);
       }

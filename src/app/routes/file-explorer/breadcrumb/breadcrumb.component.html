@@ -1,6 +1,45 @@
-<div class="nme-breadcrumb-container">
-  <section *ngFor="let breadcrumb of breadcrumbs; index as index; last as last;">
-    <button mat-button [disableRipple]="last" (click)="onBreadcrumbClick(index);">{{ breadcrumb }}</button>
-    <mat-icon *ngIf="!last">navigate_next</mat-icon>
+<div #container class="nme-breadcrumb-container">
+
+  <section #breadcrumbSections>
+    <ng-container *ngIf="this.breadcrumbs.length > 1">
+      <button mat-button (click)="this.breadcrumbClick.emit('/');"><span class="breadcrumb-text">{{ breadcrumbs[0] }}</span></button>
+      <mat-icon>navigate_next</mat-icon>
+    </ng-container>
+    <ng-container *ngIf="this.breadcrumbs.length < 2">
+      <button mat-button [matMenuTriggerFor]="menuaa">
+        <span class="breadcrumb-text">{{ breadcrumbs[0] }}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+    </ng-container>
   </section>
+
+  <section #breadcrumbSections *ngIf="hiddenBreadcrumbs.length > 0">
+    <button mat-icon-button [matMenuTriggerFor]="hiddenBreadcrumbsMenu">
+      <mat-icon>more_horiz</mat-icon>
+      <mat-menu #hiddenBreadcrumbsMenu="matMenu">
+        <button *ngFor="let item of hiddenBreadcrumbs; index as index;" mat-menu-item (click)="onHiddenBreadcrumbClick(index);">
+          {{ item }}
+        </button>
+      </mat-menu>
+    </button>
+    <mat-icon>navigate_next</mat-icon>
+  </section>
+
+  <section #breadcrumbSections *ngFor="let breadcrumb of breadcrumbs.slice(1); index as index; first as first; last as last;">
+    <ng-container *ngIf="!last">
+      <button mat-button (click)="onBreadcrumbClick(index);"><span class="breadcrumb-text">{{ breadcrumb }}</span></button>
+      <mat-icon>navigate_next</mat-icon>
+    </ng-container>
+    <ng-container *ngIf="last">
+      <button mat-button [matMenuTriggerFor]="menuaa">
+        <span class="breadcrumb-text">{{ breadcrumb }}</span>
+        <mat-icon>arrow_drop_down</mat-icon>
+      </button>
+    </ng-container>
+  </section>
+
+  <mat-menu #menuaa="matMenu">
+    <button mat-menu-item>创建文件夹</button>
+  </mat-menu>
+
 </div>

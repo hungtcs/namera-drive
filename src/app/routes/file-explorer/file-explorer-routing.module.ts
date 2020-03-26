@@ -7,7 +7,7 @@ const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    redirectTo: Base64.encode('/'),
+    redirectTo: encodeURIComponent(Base64.encode('/')),
   },
   {
     path: ':dirpath',

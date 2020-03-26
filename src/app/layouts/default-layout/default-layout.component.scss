@@ -25,6 +25,14 @@
           > [mat-icon-button] + [mat-icon-button] {
             margin-left: 0.5rem;
           }
+          > .user-xxxxxx {
+            display: flex;
+            flex-flow: row nowrap;
+            margin-left: 1rem;
+            > button {
+              margin-right: 0.5rem;
+            }
+          }
         }
       }
     }

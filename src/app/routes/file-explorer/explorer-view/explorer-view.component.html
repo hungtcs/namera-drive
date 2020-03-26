@@ -1,0 +1,12 @@
+
+<nme-explorer-grid-view
+  *ngIf="mode === ExplorerViewMode.GRID"
+  [selectedFiles]="selectedFiles"
+  (selectedFilesChange)="selectedFiles = $event; selectedFilesChange.emit($event);">
+</nme-explorer-grid-view>
+
+<nme-explorer-list-view
+  *ngIf="mode === ExplorerViewMode.LIST"
+  [selectedFiles]="selectedFiles"
+  (selectedFilesChange)="selectedFiles = $event; selectedFilesChange.emit($event);">
+</nme-explorer-list-view>

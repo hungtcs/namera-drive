@@ -2,13 +2,12 @@ import { AppComponent } from './app.component';
 import { RouterModule } from '@angular/router';
 import { RoutesModule } from './routes/routes.module';
 import { MatIconRegistry } from '@angular/material/icon';
-import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { TransferHttpCacheModule } from '@nguniversal/common'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ConfigModule, ConfigService } from '@shared';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { ConfigModule, ConfigService, AuthInterceptor } from '@shared';
 import { NgModule, APP_INITIALIZER, DoBootstrap, ApplicationRef } from '@angular/core';
 import {  DomSanitizer, BrowserTransferStateModule, BrowserModule } from '@angular/platform-browser';
-import { TransferHttpCacheModule } from '@nguniversal/common'
 
 @NgModule({
   imports: [
@@ -48,6 +47,7 @@ export class AppModule implements DoBootstrap {
   constructor(
       readonly domSanitizer: DomSanitizer,
       readonly iconRegistry: MatIconRegistry,) {
+    iconRegistry.addSvgIcon('file-move', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/file-move.svg'));
     iconRegistry.addSvgIcon('notification', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/notification.svg'));
   }
 

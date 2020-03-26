@@ -1,14 +1,31 @@
-<nme-breadcrumb [dirpath]="dirpath" (breadcrumbClick)="onBreadcrumbClick($event);"></nme-breadcrumb>
+<header>
+  <nme-breadcrumb #breadcrumb="breadcrumb" [dirpath]="dirpath" (breadcrumbClick)="onBreadcrumbClick($event);"></nme-breadcrumb>
+  <section>
+    <ng-container *ngIf="selectedFiles.size > 0">
+      <p>已选{{ selectedFiles.size }}项</p>
+      <button mat-icon-button matTooltip="获取共享链接">
+        <mat-icon class="material-icons--outlined">link</mat-icon>
+      </button>
+      <button mat-icon-button matTooltip="移动文件到回收站">
+        <mat-icon class="material-icons--outlined">delete</mat-icon>
+      </button>
+      <mat-divider [vertical]="true"></mat-divider>
+    </ng-container>
+    <button *ngIf="viewMode === ExplorerViewMode.GRID" mat-icon-button matTooltip="列表显示" (click)="viewMode = ExplorerViewMode.LIST">
+      <mat-icon class="material-icons--outlined">view_list</mat-icon>
+    </button>
+    <button *ngIf="viewMode === ExplorerViewMode.LIST" mat-icon-button matTooltip="网格显示" (click)="viewMode = ExplorerViewMode.GRID">
+      <mat-icon class="material-icons--outlined">view_module</mat-icon>
+    </button>
+    <button mat-icon-button matTooltip="详细信息">
+      <mat-icon>info_outlined</mat-icon>
+    </button>
+  </section>
+</header>
 
-<div style="height: 1px; margin: 0px 1rem; background-color: #000; opacity: 0.256;"></div>
+<mat-divider style="margin: 0px 1rem;"></mat-divider>
 
-<main class="files">
-  <mat-grid-list cols="5" gutterSize="1rem">
-    <mat-grid-tile *ngFor="let file of files;">
-      <mat-card (click)="onFileClick(file);">
-        <img mat-card-image src="/assets/wallpapers/01.jpg" />
-        <mat-card-content>{{ file.name }}</mat-card-content>
-      </mat-card>
-    </mat-grid-tile>
-  </mat-grid-list>
-</main>
+<nme-explorer-view
+  [mode]="viewMode"
+  (selectedFilesChange)="onSelectedFilesChange($event);">
+</nme-explorer-view>
