@@ -1,0 +1,54 @@
+
+
+:host {
+  width: 384px;
+  display: flex;
+  padding: 0.5rem 1rem;
+  flex-flow: column nowrap;
+  > header {
+    > h3 {
+      margin: 0px;
+    }
+  }
+  > main {
+    > mat-list {
+      > mat-list-item {
+        &.nme-list-item--progress {
+          position: relative;
+        }
+        &::ng-deep {
+          > .mat-list-item-content {
+            z-index: 1;
+            padding: 0px 0.2rem 0px 1rem;
+            &:hover {
+              > .upload-cancel-button {
+                mat-icon {
+                  display: inline-block;
+                }
+                .upload-percentage-text {
+                  display: none;
+                }
+              }
+            }
+            > .upload-cancel-button {
+              mat-icon {
+                display: none;
+              }
+              .upload-percentage-text {
+                display: inline-block;
+              }
+            }
+          }
+          > .nme-list-item__indicator {
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 20px;
+            position: absolute;
+            background: rgba($color: green, $alpha: 0.256);
+          }
+        }
+      }
+    }
+  }
+}

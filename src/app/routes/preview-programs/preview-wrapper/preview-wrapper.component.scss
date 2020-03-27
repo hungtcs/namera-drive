@@ -1,0 +1,44 @@
+
+:host {
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  color: #FFF;
+  bottom: 0px;
+  display: flex;
+  z-index: 1024;
+  position: fixed;
+  flex-flow: column nowrap;
+  background-color: rgba($color: #000000, $alpha: 0.768);
+  > header {
+    flex: 0 0 auto;
+    display: flex;
+    padding: 0.5rem 1rem;
+    > section {
+      display: flex;
+      flex-flow: row nowrap;
+      align-items: center;
+      &:first-child {
+        justify-content: flex-start;
+        > h2 {
+          font: 500 20px/32px Roboto, "Helvetica Neue", sans-serif;
+          margin: 0px 0px 0px 1rem;
+          letter-spacing: normal;
+        }
+      }
+      &:last-child {
+        justify-content: flex-start;
+      }
+    }
+  }
+  > main {
+    flex: 1 1 auto;
+    display: block;
+    &::ng-deep > ng-component {
+      width: 100%;
+      height: 100%;
+      display: block;
+      overflow: hidden;
+    }
+  }
+}

@@ -22,6 +22,12 @@
       ],
       "@shared/*": [
         "src/app/shared/*"
+      ],
+      "@layout": [
+        "src/app/layout/public_api"
+      ],
+      "@layout/*": [
+        "src/app/layout/*"
       ]
     }
   },

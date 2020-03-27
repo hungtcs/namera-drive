@@ -17,6 +17,7 @@ import { RubberbandModule } from '@shared';
 import { ExplorerGridViewComponent } from './explorer-view/explorer-grid-view/explorer-grid-view.component';
 import { ExplorerListViewComponent } from './explorer-view/explorer-list-view/explorer-list-view.component';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 import { ExplorerViewComponent } from './explorer-view/explorer-view.component';
 
 @NgModule({
@@ -33,6 +34,7 @@ import { ExplorerViewComponent } from './explorer-view/explorer-view.component';
     MatRippleModule,
     MatTableModule,
     MatGridListModule,
+    MatDialogModule,
     FileExplorerRoutingModule,
   ],
   declarations: [

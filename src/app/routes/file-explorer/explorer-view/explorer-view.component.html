@@ -1,12 +1,70 @@
 
-<nme-explorer-grid-view
-  *ngIf="mode === ExplorerViewMode.GRID"
+<!--
   [selectedFiles]="selectedFiles"
-  (selectedFilesChange)="selectedFiles = $event; selectedFilesChange.emit($event);">
-</nme-explorer-grid-view>
+  (selectedFilesChange)="selectedFiles = $event; selectedFilesChange.emit($event);" -->
+
+<nme-explorer-grid-view *ngIf="mode === ExplorerViewMode.GRID"></nme-explorer-grid-view>
 
 <nme-explorer-list-view
   *ngIf="mode === ExplorerViewMode.LIST"
   [selectedFiles]="selectedFiles"
   (selectedFilesChange)="selectedFiles = $event; selectedFilesChange.emit($event);">
 </nme-explorer-list-view>
+
+<div #contextMenuTrigger="matMenuTrigger"
+  style="visibility: hidden; position: fixed"
+  [style.top.px]="contextMenuPosition.y"
+  [style.left.px]="contextMenuPosition.x"
+  [matMenuTriggerFor]="contextMenu">
+</div>
+<mat-menu #contextMenu="matMenu">
+  <ng-template matMenuContent let-file="file">
+    <ng-container *ngIf="file">
+      <button mat-menu-item (click)="openFile(file);">
+        <mat-icon class="material-icons--outlined">touch_app</mat-icon>打开
+      </button>
+      <button *ngIf="file.isFile()" mat-menu-item>
+        <mat-icon class="material-icons--outlined">cloud_download</mat-icon>下载
+      </button>
+      <button mat-menu-item>
+        <mat-icon class="material-icons--outlined">share</mat-icon>生成共享链接
+      </button>
+      <mat-divider></mat-divider>
+      <button *ngIf="file.isFile()" mat-menu-item>
+        <mat-icon class="material-icons--outlined">file_copy</mat-icon>生成副本
+      </button>
+      <button mat-menu-item>
+        <mat-icon class="material-icons--outlined">edit</mat-icon>重命名
+      </button>
+      <button mat-menu-item>
+        <mat-icon svgIcon="file-move"></mat-icon>移动至...
+      </button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item (click)="onRemoveFiles();">
+        <mat-icon class="material-icons--outlined">delete</mat-icon>移动到回收站
+      </button>
+      <button mat-menu-item class="mat-warn" (click)="onDeleteFiles();">
+        <mat-icon color="warn" class="material-icons--outlined">delete_forever</mat-icon>永久删除
+      </button>
+    </ng-container>
+    <ng-container *ngIf="!file">
+      <button mat-menu-item (click)="onUploadFilesClick();">
+        <mat-icon class="material-icons--outlined">cloud_upload</mat-icon>上传文件
+      </button>
+      <button mat-menu-item>
+        <mat-icon class="material-icons--outlined">create_new_folder</mat-icon>创建文件夹
+      </button>
+    </ng-container>
+  </ng-template>
+</mat-menu>
+
+<ng-template #deleteConfimDialogTemplate>
+  <h1 mat-dialog-title>是否永久删除</h1>
+  <div mat-dialog-content>
+    <p style="margin: 0px;">您正在删除{{ selectedFiles.size }}个文件或文件夹, <b>请注意这是不能恢复的！</b></p>
+  </div>
+  <div mat-dialog-actions>
+    <button mat-button [mat-dialog-close]="false" cdkFocusInitial>取消</button>
+    <button mat-button color="warn" [mat-dialog-close]="true">确认</button>
+  </div>
+</ng-template>

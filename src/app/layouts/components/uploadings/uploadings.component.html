@@ -1,0 +1,19 @@
+<header>
+  <h3 class="mat-h3">上传列表</h3>
+</header>
+<main>
+  <mat-list *ngIf="uploadTasks.length > 0" dense>
+    <ng-container *ngFor="let task of uploadTasks; last as last;">
+      <mat-list-item [nmeProgressListItem]="task.progress">
+        <p matLine>{{ task.filename }}</p>
+        <mat-icon *ngIf="task.progress === 100" class="material-icons--outlined">cloud_done</mat-icon>
+        <button *ngIf="task.progress < 100" mat-icon-button class="upload-cancel-button">
+          <mat-icon>clear</mat-icon>
+          <span class="upload-percentage-text mat-body-1">{{ task.progress | number: '1.0-2' }}%</span>
+        </button>
+      </mat-list-item>
+      <mat-divider *ngIf="!last"></mat-divider>
+    </ng-container>
+  </mat-list>
+  <h2 *ngIf="uploadTasks.length < 1">没有上传任务</h2>
+</main>

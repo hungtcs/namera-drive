@@ -5,6 +5,11 @@ import { AuthGuard, UserResolver } from '@shared';
 
 const routes: Routes = [
   {
+    path: 'preview-programs',
+    outlet: 'preview-programs',
+    loadChildren: () => import('./preview-programs/preview-programs.module').then(module => module.PreviewProgramsModule),
+  },
+  {
     path: '',
     resolve: {
       user: UserResolver,
@@ -18,6 +23,10 @@ const routes: Routes = [
       {
         path: 'explorer',
         loadChildren: () => import('./file-explorer/file-explorer.module').then(module => module.FileExplorerModule),
+      },
+      {
+        path: 'recycle-bin',
+        loadChildren: () => import('./recycle-bin/recycle-bin.module').then(module => module.RecycleBinModule),
       },
     ],
     component: DefaultLayoutComponent,
@@ -36,7 +45,6 @@ const routes: Routes = [
 @NgModule({
   imports: [
     RouterModule.forRoot(routes, {
-      // initialNavigation: 'enabled',
       initialNavigation: 'disabled',
     }),
   ],

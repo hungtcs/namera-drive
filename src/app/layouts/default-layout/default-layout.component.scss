@@ -42,9 +42,15 @@
     z-index: 0;
     > mat-sidenav {
       width: 250px;
-      // [mat-list-icon] {
-      //   margin-right: 0.5rem;
-      // }
+    }
+  }
+}
+
+
+::ng-deep {
+  .mat-menu-panel {
+    &.mat-menu-panel--uploadings-panel {
+      max-width: none;
     }
   }
 }

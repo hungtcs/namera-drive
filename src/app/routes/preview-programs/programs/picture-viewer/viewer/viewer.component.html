@@ -1,0 +1,13 @@
+
+<ng-container *ngIf="!imageSafeResourceUrl">
+  <mat-spinner color="light"></mat-spinner>
+</ng-container>
+
+<ng-container *ngIf="imageSafeResourceUrl">
+  <div class="zoom-wrapper" (mousewheel)="onMouseWheel($event);">
+    <div #image
+      [style.background-image]="imageSafeResourceUrl"
+      (mousedown)="onMouseDown($event);">
+    </div>
+  </div>
+</ng-container>

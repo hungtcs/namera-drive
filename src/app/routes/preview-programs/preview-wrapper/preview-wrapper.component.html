@@ -1,0 +1,11 @@
+<header>
+  <section>
+    <button mat-icon-button (click)="componentRef.destroy();">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+    <h2>{{ file?.name }}</h2>
+  </section>
+</header>
+<main>
+  <router-outlet name="preview-programs"></router-outlet>
+</main>

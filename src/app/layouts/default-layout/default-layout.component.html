@@ -4,24 +4,17 @@
       <button mat-icon-button class="sidenav-toggle-button" (click)="sidenav.toggle();">
         <mat-icon>menu</mat-icon>
       </button>
-      <span>
-        Namera Drive
-      </span>
+      <span>Namera Drive</span>
     </section>
     <section></section>
     <section class="mat-toolbar-section mat-toolbar-section--extra">
       <button mat-icon-button
+        matTooltip="上传列表"
         [matMenuTriggerFor]="notificationMenu">
-        <mat-icon
-          svgIcon="notification"
-          matBadge="2"
-          matBadgeColor="warn"
-          matBadgePosition="above after"
-          [matBadgeOverlap]="true">
-        </mat-icon>
-        <mat-menu #notificationMenu="matMenu" xPosition="before" yPosition="below">
+        <mat-icon matBadge="2" matBadgeColor="warn" matBadgePosition="above after">cloud_upload</mat-icon>
+        <mat-menu #notificationMenu="matMenu" class="mat-menu-panel--uploadings-panel" xPosition="before" yPosition="below">
           <ng-template matMenuContent>
-            <span>未实现</span>
+            <nme-uploadings></nme-uploadings>
           </ng-template>
         </mat-menu>
       </button>
@@ -38,7 +31,7 @@
 <mat-sidenav-container>
   <mat-sidenav #sidenav [mode]="sidenavMode" [opened]="sidenavOpened">
     <mat-nav-list>
-      <mat-list-item routerLink="/explorer">
+      <mat-list-item routerLink="/explorer" routerLinkActive="mat-list-item-disabled">
         <mat-icon mat-list-icon>cloud_queue</mat-icon>
         <a matLine>我的云端硬盘</a>
       </mat-list-item>
@@ -51,7 +44,7 @@
         <a matLine>已加星标</a>
       </mat-list-item>
       <mat-divider></mat-divider>
-      <mat-list-item>
+      <mat-list-item routerLink="/recycle-bin" routerLinkActive="mat-list-item-disabled">
         <mat-icon mat-list-icon class="material-icons--outlined">delete</mat-icon>
         <a matLine>回收站</a>
       </mat-list-item>

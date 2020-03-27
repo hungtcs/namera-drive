@@ -11,6 +11,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { DefaultLayoutComponent } from './default-layout/default-layout.component';
 import { MatRippleModule } from '@angular/material/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { UploadingsComponent } from './components/uploadings/uploadings.component';
+import { ProgressListItemDirective } from './components/uploadings/progress-list-item.directive';
 
 @NgModule({
   imports: [
@@ -23,6 +26,7 @@ import { MatRippleModule } from '@angular/material/core';
     GravatarModule,
     MatButtonModule,
     MatRippleModule,
+    MatTooltipModule,
     MatToolbarModule,
     MatSidenavModule,
   ],
@@ -30,7 +34,9 @@ import { MatRippleModule } from '@angular/material/core';
     DefaultLayoutComponent,
   ],
   declarations: [
+    UploadingsComponent,
     DefaultLayoutComponent,
+    ProgressListItemDirective,
   ],
 })
 export class LayoutsModule {
