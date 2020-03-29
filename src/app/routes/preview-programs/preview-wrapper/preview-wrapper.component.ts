@@ -4,7 +4,7 @@ import { Component, Input, ComponentRef, OnDestroy } from '@angular/core';
 
 const mappings = [
   {
-    tule: /video\/(mp4)/,
+    tule: /video\/(mp4|x-matroska)/,
     route: 'video-player',
   },
   {

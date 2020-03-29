@@ -34,6 +34,7 @@
   > main {
     flex: 1 1 auto;
     display: block;
+    overflow: hidden;
     &::ng-deep > ng-component {
       width: 100%;
       height: 100%;
