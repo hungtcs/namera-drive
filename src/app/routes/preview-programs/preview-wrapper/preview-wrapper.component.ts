@@ -1,6 +1,6 @@
 import { Router } from '@angular/router';
 import { FileStat } from '@shared';
-import { Component, Input, ComponentRef, OnDestroy } from '@angular/core';
+import { Component, Input, ComponentRef, OnDestroy, HostListener } from '@angular/core';
 
 const mappings = [
   {
@@ -63,6 +63,11 @@ export class PreviewWrapperComponent implements OnDestroy {
         },
       },
     ]);
+  }
+
+  @HostListener('window:popstate')
+  public onPopstate() {
+    this.componentRef.destroy();
   }
 
 }

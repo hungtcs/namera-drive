@@ -1,7 +1,7 @@
 <ng-container *ngIf="isFile">
   <mat-card
     mat-ripple>
-    <div class="nme-file__conver"></div>
+    <div class="nme-file__conver" [style.background-image]="thumbnailStyle"></div>
     <mat-card-content
       [matTooltip]="file.name"
       [matTooltipShowDelay]="1000">

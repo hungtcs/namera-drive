@@ -12,6 +12,10 @@ export class UploadingsComponent implements OnInit {
     return this.uploadingsService.uploadTasks;
   }
 
+  public get activeUploadTasks() {
+    return this.uploadTasks.filter(task => task.progress < 100);
+  }
+
   constructor(
       private readonly uploadingsService: UploadingsService) {
 

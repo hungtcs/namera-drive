@@ -11,11 +11,12 @@
       <button mat-icon-button
         matTooltip="上传列表"
         [matMenuTriggerFor]="notificationMenu">
-        <mat-icon matBadge="2" matBadgeColor="warn" matBadgePosition="above after">cloud_upload</mat-icon>
+        <mat-icon [matBadge]="uploadings.activeUploadTasks.length"
+            matBadgeColor="warn"
+            [matBadgeHidden]="uploadings.activeUploadTasks.length < 1"
+            matBadgePosition="above after">cloud_upload</mat-icon>
         <mat-menu #notificationMenu="matMenu" class="mat-menu-panel--uploadings-panel" xPosition="before" yPosition="below">
-          <ng-template matMenuContent>
-            <nme-uploadings></nme-uploadings>
-          </ng-template>
+          <nme-uploadings #uploadings></nme-uploadings>
         </mat-menu>
       </button>
       <div class="user-xxxxxx">

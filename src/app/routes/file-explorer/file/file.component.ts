@@ -1,5 +1,6 @@
 import { FileStat } from '@shared';
 import { Component, OnInit, Input, HostBinding, EventEmitter, Output } from '@angular/core';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'nme-file',
@@ -27,7 +28,12 @@ export class FileComponent implements OnInit {
     return this.file?.isDirectory()
   }
 
-  constructor() {
+  public get thumbnailStyle() {
+    return this.domSanitizer.bypassSecurityTrustStyle(`url(/api/media/thumbnail/${ Base64.encode(this.file.fullpath) })`);
+  }
+
+  constructor(
+      private readonly domSanitizer: DomSanitizer) {
 
   }
 

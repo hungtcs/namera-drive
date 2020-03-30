@@ -17,10 +17,6 @@ export class MediaService {
 
   }
 
-  public getVideoMediadata(videopath: string) {
-    return this.http.get<{ width: number, height: number }>(`${ this.apiPrefix }/video/mediadata/${ Base64.encode(videopath) }`);
-  }
-
 
 
 }
