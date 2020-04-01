@@ -1,6 +1,7 @@
 export * from './shared.module';
 
 export * from './config/public_api';
+export * from './dialog/public_api';
 export * from './entities/public_api';
 export * from './enums/public_api';
 export * from './gravatar/public_api';

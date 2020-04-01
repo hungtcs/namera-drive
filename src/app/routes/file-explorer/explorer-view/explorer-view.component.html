@@ -1,8 +1,4 @@
 
-<!--
-  [selectedFiles]="selectedFiles"
-  (selectedFilesChange)="selectedFiles = $event; selectedFilesChange.emit($event);" -->
-
 <nme-explorer-grid-view *ngIf="mode === ExplorerViewMode.GRID"></nme-explorer-grid-view>
 
 <nme-explorer-list-view
@@ -33,7 +29,7 @@
       <button *ngIf="file.isFile()" mat-menu-item>
         <mat-icon class="material-icons--outlined">file_copy</mat-icon>生成副本
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="onRenameFile(file);">
         <mat-icon class="material-icons--outlined">edit</mat-icon>重命名
       </button>
       <button mat-menu-item>

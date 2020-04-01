@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { Breakpoints } from '@angular/cdk/layout';
 import { ExplorerViewComponent } from '../explorer-view.component';
 import { RubberbandCellDirective } from '@shared';
-import { isPlatformBrowser } from '@angular/common';
 
 const BreakpointsGridListColsMapping = {
   [Breakpoints.XSmall]: 2,

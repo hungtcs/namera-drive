@@ -1,6 +1,39 @@
 import { FileStat } from '@shared';
-import { Component, OnInit, Input, HostBinding, EventEmitter, Output } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
+import { Component, OnInit, Input, HostBinding, EventEmitter, Output } from '@angular/core';
+
+const typeIcon = [
+  {
+    test: /image\/*/,
+    icon: 'image',
+    type: 'font',
+    color: '#2B78FE',
+  },
+  {
+    test: /video\/*/,
+    icon: 'movie_creation',
+    type: 'font',
+    color: '#D80000',
+  },
+  {
+    test: /application\/(vnd\.ms-excel|vnd\.openxmlformats-officedocument\.spreadsheetml\.sheet)/,
+    icon: 'microsoft-excel',
+    type: 'svg',
+    color: '#107B0F',
+  },
+  {
+    test: /application\/(msword|vnd\.openxmlformats-officedocument\.wordprocessingml\.document)/,
+    icon: 'microsoft-word',
+    type: 'svg',
+    color: '#2B579B',
+  },
+  {
+    test: /application\/(vnd\.ms-powerpoint|vnd\.openxmlformats-officedocument\.presentationml\.presentation)/,
+    icon: 'microsoft-powerpoint',
+    type: 'svg',
+    color: '#D24825',
+  },
+];
 
 @Component({
   selector: 'nme-file',
@@ -29,7 +62,12 @@ export class FileComponent implements OnInit {
   }
 
   public get thumbnailStyle() {
-    return this.domSanitizer.bypassSecurityTrustStyle(`url(/api/media/thumbnail/${ Base64.encode(this.file.fullpath) })`);
+    return this.domSanitizer.bypassSecurityTrustStyle(`url(/api/media/thumbnail/${ encodeURIComponent(Base64.encode(this.file.fullpath)) })`);
+  }
+
+  public get icon() {
+    const type = typeIcon.find(item => item.test.test(this.file.mimeType));
+    return type ?? { icon: 'description', type: 'font', color: '#2B78FE' };
   }
 
   constructor(

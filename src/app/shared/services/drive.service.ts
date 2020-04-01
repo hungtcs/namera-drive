@@ -32,7 +32,15 @@ export class DriveService {
   }
 
   public createDirectory(dirpath: string) {
-    return this.http.post<FileStat>(`${ this.apiPrefix }/mkdir/${ Base64.encode(dirpath) }`, {})
+    dirpath = encodeURIComponent(Base64.encode(dirpath));
+    return this.http.post<FileStat>(`${ this.apiPrefix }/mkdir/${ dirpath }`, {})
+      .pipe(map(data => plainToClass(FileStat, data)));
+  }
+
+  public moveFile(sourcepath: string, targetpath: string) {
+    sourcepath = encodeURIComponent(Base64.encode(sourcepath));
+    targetpath = encodeURIComponent(Base64.encode(targetpath));
+    return this.http.put(`${ this.apiPrefix }/move/${ sourcepath }/${ targetpath }`, {})
       .pipe(map(data => plainToClass(FileStat, data)));
   }
 

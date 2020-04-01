@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input #input [required]="required" matInput cdkFocusInitial [(ngModel)]="value" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button [mat-dialog-close]="false">取消</button>
+  <button mat-button color="primary" (click)="onOk();">确认</button>
+</div>

@@ -48,6 +48,9 @@ export class AppModule implements DoBootstrap {
       readonly domSanitizer: DomSanitizer,
       readonly iconRegistry: MatIconRegistry,) {
     iconRegistry.addSvgIcon('file-move', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/file-move.svg'));
+    iconRegistry.addSvgIcon('microsoft-excel', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/microsoft-excel.svg'));
+    iconRegistry.addSvgIcon('microsoft-powerpoint', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/microsoft-powerpoint.svg'));
+    iconRegistry.addSvgIcon('microsoft-word', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/microsoft-word.svg'));
     iconRegistry.addSvgIcon('notification', domSanitizer.bypassSecurityTrustResourceUrl('assets/icons/notification.svg'));
   }
 

@@ -1,11 +1,12 @@
+import path from 'path-browserify';
 import { tap, mergeMap } from 'rxjs/operators';
 import { Subscription, of } from 'rxjs';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ExplorerViewMode } from './explorer-view-mode.enum';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FileType, FileStat, DriveService } from '@shared';
+import { FileType, FileStat, DriveService, DialogService } from '@shared';
 import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
-import { Component, OnInit, ViewChild, Input, EventEmitter, Output, Inject, PLATFORM_ID, TemplateRef, ComponentFactoryResolver, Injector, ApplicationRef } from '@angular/core';
+import { Component, OnInit, ViewChild, Input, EventEmitter, Output, Inject, PLATFORM_ID, TemplateRef, Injector } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { PreviewProgramsService } from '../../preview-programs/preview-programs.service';
 import { DOCUMENT } from '@angular/common';
@@ -57,6 +58,7 @@ export class ExplorerViewComponent implements OnInit {
       protected readonly injector: Injector,
       protected readonly matDialog: MatDialog,
       protected readonly driveService: DriveService,
+      protected readonly dialogService: DialogService,
       protected readonly activatedRoute: ActivatedRoute,
       protected readonly breakpointObserver: BreakpointObserver,
       protected readonly uploadingsService: UploadingsService,
@@ -169,6 +171,22 @@ export class ExplorerViewComponent implements OnInit {
   public onRemoveFiles() {
     const filepaths = Array.from(this.selectedFiles).map(file => file.fullpath);
     this.driveService.removeFiles(filepaths)
+      .pipe(tap(() => this.loadFiles()))
+      .subscribe();
+  }
+
+  public onRenameFile(file: FileStat) {
+    const subscription = this.dialogService.prompt({
+      title: '重命名',
+      value: file.name,
+      required: true,
+    })
+      .pipe(tap(result => {
+        if(!result) {
+          subscription.unsubscribe();
+        }
+      }))
+      .pipe(mergeMap(result => this.driveService.moveFile(file.fullpath, path.join(path.dirname(file.fullpath), result))))
       .pipe(tap(() => this.loadFiles()))
       .subscribe();
   }
