@@ -1,5 +1,9 @@
 <header>
-  <nme-breadcrumb #breadcrumb="breadcrumb" [dirpath]="dirpath" (breadcrumbClick)="onBreadcrumbClick($event);"></nme-breadcrumb>
+  <nme-breadcrumb #breadcrumb="breadcrumb"
+    [dirpath]="dirpath"
+    [explorerView]="explorerView"
+    (breadcrumbClick)="onBreadcrumbClick($event);">
+  </nme-breadcrumb>
   <section>
     <ng-container *ngIf="selectedFiles.size > 0">
       <p>已选{{ selectedFiles.size }}项</p>
@@ -11,10 +15,10 @@
       </button>
       <mat-divider [vertical]="true"></mat-divider>
     </ng-container>
-    <button *ngIf="viewMode === ExplorerViewMode.GRID" mat-icon-button matTooltip="列表显示" (click)="viewMode = ExplorerViewMode.LIST">
+    <button *ngIf="viewMode === ExplorerViewMode.GRID" mat-icon-button matTooltip="列表显示" (click)="onToggleViewMode(ExplorerViewMode.LIST);">
       <mat-icon class="material-icons--outlined">view_list</mat-icon>
     </button>
-    <button *ngIf="viewMode === ExplorerViewMode.LIST" mat-icon-button matTooltip="网格显示" (click)="viewMode = ExplorerViewMode.GRID">
+    <button *ngIf="viewMode === ExplorerViewMode.LIST" mat-icon-button matTooltip="网格显示" (click)="onToggleViewMode(ExplorerViewMode.GRID)">
       <mat-icon class="material-icons--outlined">view_module</mat-icon>
     </button>
     <button mat-icon-button matTooltip="详细信息">
@@ -26,6 +30,7 @@
 <mat-divider style="margin: 0px 1rem;"></mat-divider>
 
 <nme-explorer-view
+  #explorerView
   [mode]="viewMode"
   (selectedFilesChange)="onSelectedFilesChange($event);">
 </nme-explorer-view>

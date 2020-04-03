@@ -1,5 +1,6 @@
 import { tap } from 'rxjs/operators';
 import { Component, Input, EventEmitter, Output, ElementRef, ViewChild, AfterViewInit, QueryList, ViewChildren, HostListener } from '@angular/core';
+import { ExplorerViewComponent } from '../explorer-view/explorer-view.component';
 
 @Component({
   selector: 'nme-breadcrumb',
@@ -13,6 +14,9 @@ export class BreadcrumbComponent implements AfterViewInit {
   public breadcrumbs: Array<string> = [];
 
   public hiddenBreadcrumbs: Array<string> = [];
+
+  @Input()
+  public explorerView: ExplorerViewComponent;
 
   @Output()
   public breadcrumbClick: EventEmitter<string> = new EventEmitter();
@@ -54,7 +58,7 @@ export class BreadcrumbComponent implements AfterViewInit {
 
   public onBreadcrumbClick(index: number) {
     const fullpaths = [this.breadcrumbs[0], ...this.hiddenBreadcrumbs, ...this.breadcrumbs.slice(1)];
-    const path = `/${ fullpaths.slice(1, index + this.hiddenBreadcrumbs.length + 1).join('/') }`;
+    const path = `/${ fullpaths.slice(1, index + this.hiddenBreadcrumbs.length + 2).join('/') }`;
     this.breadcrumbClick.emit(path);
   }
 

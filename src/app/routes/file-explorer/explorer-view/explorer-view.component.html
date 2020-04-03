@@ -47,20 +47,9 @@
       <button mat-menu-item (click)="onUploadFilesClick();">
         <mat-icon class="material-icons--outlined">cloud_upload</mat-icon>上传文件
       </button>
-      <button mat-menu-item>
+      <button mat-menu-item (click)="onCreateFolder();">
         <mat-icon class="material-icons--outlined">create_new_folder</mat-icon>创建文件夹
       </button>
     </ng-container>
   </ng-template>
 </mat-menu>
-
-<ng-template #deleteConfimDialogTemplate>
-  <h1 mat-dialog-title>是否永久删除</h1>
-  <div mat-dialog-content>
-    <p style="margin: 0px;">您正在删除{{ selectedFiles.size }}个文件或文件夹, <b>请注意这是不能恢复的！</b></p>
-  </div>
-  <div mat-dialog-actions>
-    <button mat-button [mat-dialog-close]="false" cdkFocusInitial>取消</button>
-    <button mat-button color="warn" [mat-dialog-close]="true">确认</button>
-  </div>
-</ng-template>

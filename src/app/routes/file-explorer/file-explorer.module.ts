@@ -13,7 +13,7 @@ import { FileComponent } from './file/file.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
-import { RubberbandModule, DialogModule } from '@shared';
+import { RubberbandModule, DialogModule, SharedModule } from '@shared';
 import { ExplorerGridViewComponent } from './explorer-view/explorer-grid-view/explorer-grid-view.component';
 import { ExplorerListViewComponent } from './explorer-view/explorer-list-view/explorer-list-view.component';
 import { MatTableModule } from '@angular/material/table';
@@ -21,6 +21,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { ExplorerViewComponent } from './explorer-view/explorer-view.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [
@@ -39,7 +40,9 @@ import { FormsModule } from '@angular/forms';
     MatTableModule,
     MatGridListModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     MatDialogModule,
+    SharedModule,
     FileExplorerRoutingModule,
   ],
   declarations: [

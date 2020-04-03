@@ -1,0 +1,11 @@
+
+
+:host {
+
+}
+
+:host(::ng-deep) {
+  .mat-dialog-actions {
+    justify-content: flex-end;
+  }
+}

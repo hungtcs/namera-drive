@@ -6,7 +6,7 @@
       <mat-icon>navigate_next</mat-icon>
     </ng-container>
     <ng-container *ngIf="this.breadcrumbs.length < 2">
-      <button mat-button [matMenuTriggerFor]="menuaa">
+      <button mat-button [matMenuTriggerFor]="dropdownMenu">
         <span class="breadcrumb-text">{{ breadcrumbs[0] }}</span>
         <mat-icon>arrow_drop_down</mat-icon>
       </button>
@@ -17,7 +17,11 @@
     <button mat-icon-button [matMenuTriggerFor]="hiddenBreadcrumbsMenu">
       <mat-icon>more_horiz</mat-icon>
       <mat-menu #hiddenBreadcrumbsMenu="matMenu">
-        <button *ngFor="let item of hiddenBreadcrumbs; index as index;" mat-menu-item (click)="onHiddenBreadcrumbClick(index);">
+        <button *ngFor="let item of hiddenBreadcrumbs; index as index;"
+          mat-menu-item
+          [matTooltip]="item"
+          [matTooltipShowDelay]="500"
+          (click)="onHiddenBreadcrumbClick(index);">
           {{ item }}
         </button>
       </mat-menu>
@@ -27,19 +31,32 @@
 
   <section #breadcrumbSections *ngFor="let breadcrumb of breadcrumbs.slice(1); index as index; first as first; last as last;">
     <ng-container *ngIf="!last">
-      <button mat-button (click)="onBreadcrumbClick(index);"><span class="breadcrumb-text">{{ breadcrumb }}</span></button>
+      <button mat-button
+        [matTooltip]="breadcrumb"
+        [matTooltipShowDelay]="500"
+        (click)="onBreadcrumbClick(index);">
+        <span class="breadcrumb-text">{{ breadcrumb }}</span>
+      </button>
       <mat-icon>navigate_next</mat-icon>
     </ng-container>
     <ng-container *ngIf="last">
-      <button mat-button [matMenuTriggerFor]="menuaa">
+      <button mat-button
+        [matTooltip]="breadcrumb"
+        [matTooltipShowDelay]="500"
+        [matMenuTriggerFor]="dropdownMenu">
         <span class="breadcrumb-text">{{ breadcrumb }}</span>
         <mat-icon>arrow_drop_down</mat-icon>
       </button>
     </ng-container>
   </section>
 
-  <mat-menu #menuaa="matMenu">
-    <button mat-menu-item>创建文件夹</button>
+  <mat-menu #dropdownMenu="matMenu" xPosition="before">
+    <button mat-menu-item (click)="explorerView.onUploadFilesClick();">
+      <mat-icon class="material-icons--outlined">cloud_upload</mat-icon>上传文件
+    </button>
+    <button mat-menu-item (click)="explorerView.onCreateFolder();">
+      <mat-icon class="material-icons--outlined">create_new_folder</mat-icon>创建文件夹
+    </button>
   </mat-menu>
 
 </div>

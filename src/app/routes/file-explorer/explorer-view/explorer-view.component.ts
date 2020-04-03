@@ -1,5 +1,5 @@
 import path from 'path-browserify';
-import { tap, mergeMap } from 'rxjs/operators';
+import { tap, mergeMap, mapTo, catchError } from 'rxjs/operators';
 import { Subscription, of } from 'rxjs';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ExplorerViewMode } from './explorer-view-mode.enum';
@@ -11,7 +11,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { PreviewProgramsService } from '../../preview-programs/preview-programs.service';
 import { DOCUMENT } from '@angular/common';
 import { UploadingsService, UploadTask } from 'src/app/layouts/public_api';
-import { HttpEventType } from '@angular/common/http';
+import { HttpEventType, HttpErrorResponse } from '@angular/common/http';
+import { CONFLICT } from 'http-status-codes';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'nme-explorer-view',
@@ -57,6 +59,7 @@ export class ExplorerViewComponent implements OnInit {
       protected readonly router: Router,
       protected readonly injector: Injector,
       protected readonly matDialog: MatDialog,
+      protected readonly snackBar: MatSnackBar,
       protected readonly driveService: DriveService,
       protected readonly dialogService: DialogService,
       protected readonly activatedRoute: ActivatedRoute,
@@ -154,18 +157,18 @@ export class ExplorerViewComponent implements OnInit {
   }
 
   public onDeleteFiles() {
-    this.matDialog.open(this.deleteConfimDialogTemplate)
-      .afterClosed()
-      .pipe(mergeMap(result => {
-        if(result) {
-          const filepaths = Array.from(this.selectedFiles).map(file => file.fullpath);
-          return this.driveService.deleteFiles(filepaths);
-        } else {
-          return of(null);
-        }
-      }))
-      .pipe(tap(() => this.loadFiles()))
-      .subscribe();
+    this.dialogService.confirm({
+      data: {
+        title: '是否永久删除',
+        description: `您正在删除${ this.selectedFiles.size }个文件或文件夹, <b>请注意这是不能恢复的！</b>`
+      },
+      onConfirm: () => {
+        const filepaths = Array.from(this.selectedFiles).map(file => file.fullpath);
+        return this.driveService.deleteFiles(filepaths)
+          .pipe(tap(() => this.loadFiles()))
+          .pipe(mapTo(true));
+      },
+    })
   }
 
   public onRemoveFiles() {
@@ -176,19 +179,49 @@ export class ExplorerViewComponent implements OnInit {
   }
 
   public onRenameFile(file: FileStat) {
-    const subscription = this.dialogService.prompt({
-      title: '重命名',
-      value: file.name,
-      required: true,
-    })
-      .pipe(tap(result => {
-        if(!result) {
-          subscription.unsubscribe();
+    this.dialogService.prompt({
+      data: {
+        title: '重命名',
+        value: file.name,
+        required: true,
+      },
+      onConfirm: (value) => {
+        if(value === file.name) {
+          return true;
         }
-      }))
-      .pipe(mergeMap(result => this.driveService.moveFile(file.fullpath, path.join(path.dirname(file.fullpath), result))))
-      .pipe(tap(() => this.loadFiles()))
-      .subscribe();
+        return this.driveService.moveFile(file.fullpath, path.join(path.dirname(file.fullpath), value))
+          .pipe(tap(() => this.loadFiles()))
+          .pipe(mapTo(true));
+      },
+    });
+  }
+
+  public onCreateFolder() {
+    this.dialogService.prompt({
+      data: {
+        title: '新建文件夹',
+        value: '',
+        required: true,
+      },
+      onConfirm: (value) => {
+        return this.driveService.createDirectory(path.join(this.dirpath, value))
+          .pipe(tap(() => this.loadFiles()))
+          .pipe(mapTo(true))
+          .pipe(catchError(err => {
+            if(err instanceof HttpErrorResponse) {
+              if(err.status === CONFLICT) {
+                this.snackBar.open('文件夹已存在', '关闭', {
+                  duration: 2000,
+                  verticalPosition: 'top',
+                  horizontalPosition: 'right',
+                });
+                return of(false);
+              }
+            }
+            return of(true);
+          }));
+      },
+    });
   }
 
   private loadFiles() {

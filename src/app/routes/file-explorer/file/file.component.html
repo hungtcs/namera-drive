@@ -4,7 +4,7 @@
     <div class="nme-file__conver" [style.background-image]="thumbnailStyle"></div>
     <mat-card-content
       [matTooltip]="file.name"
-      [matTooltipShowDelay]="1000">
+      [matTooltipShowDelay]="500">
       <mat-icon *ngIf="icon.type === 'font'" [style.color]="icon.color">{{ icon.icon }}</mat-icon>
       <mat-icon *ngIf="icon.type === 'svg'" [svgIcon]="icon.icon" [style.color]="icon.color"></mat-icon>
       <span>{{ file?.name }}</span>
@@ -22,7 +22,7 @@
     mat-ripple>
     <mat-card-content
       [matTooltip]="file.name"
-      [matTooltipShowDelay]="1000">
+      [matTooltipShowDelay]="500">
       <mat-icon>folder</mat-icon>
       <span>{{ file?.name }}</span>
     </mat-card-content>

@@ -1,8 +1,8 @@
-<h1 mat-dialog-title>{{ title }}</h1>
+<h1 mat-dialog-title>{{ data.title }}</h1>
 <div mat-dialog-content>
-  <p style="margin: 0px;" [innerHTML]="description"></p>
+  <p style="margin: 0px;" [innerHTML]="data.description"></p>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false" cdkFocusInitial>取消</button>
-  <button mat-button color="warn" [mat-dialog-close]="true">确认</button>
+  <button mat-button cdkFocusInitial (click)="confirm.emit(false)">取消</button>
+  <button mat-button color="warn" (click)="confirm.emit(true);">确认</button>
 </div>

@@ -1,10 +1,19 @@
-<h1 mat-dialog-title>{{ title }}</h1>
+<h1 mat-dialog-title>{{ data.title }}</h1>
 <div mat-dialog-content>
-  <mat-form-field>
-    <input #input [required]="required" matInput cdkFocusInitial [(ngModel)]="value" />
-  </mat-form-field>
+  <form #form="ngForm" (ngSubmit)="onSubmit();">
+    <mat-form-field>
+      <input #input
+        matInput
+        cdkFocusInitial
+        name="data.value"
+        autocomplete="off"
+        [required]="data.required"
+        [placeholder]="data.placeholder"
+        [(ngModel)]="data.value" />
+    </mat-form-field>
+  </form>
 </div>
 <div mat-dialog-actions>
-  <button mat-button [mat-dialog-close]="false">取消</button>
-  <button mat-button color="primary" (click)="onOk();">确认</button>
+  <button mat-button (click)="cancel.emit();">取消</button>
+  <button mat-button color="primary" (click)="onSubmit();">确认</button>
 </div>

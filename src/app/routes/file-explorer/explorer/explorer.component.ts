@@ -1,25 +1,15 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { DriveService, FileStat, FileType, RubberbandCellDirective } from '@shared';
-import { ActivatedRoute, Router } from '@angular/router';
 import { tap } from 'rxjs/operators';
-import { MatMenuTrigger } from '@angular/material/menu';
+import { FileStat } from '@shared';
 import { Subscription } from 'rxjs';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { ExplorerViewMode } from '../explorer-view/explorer-view-mode.enum';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
-
-const BreakpointsGridListColsMapping = {
-  [Breakpoints.XSmall]: 2,
-  [Breakpoints.Small]: 4,
-  [Breakpoints.Medium]: 4,
-  [Breakpoints.Large]: 6,
-  [Breakpoints.XLarge]: 8,
-};
+import { ActivatedRoute, Router } from '@angular/router';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-explorer',
+  styleUrls: ['./explorer.component.scss'],
   templateUrl: './explorer.component.html',
-  styleUrls: ['./explorer.component.scss']
 })
 export class ExplorerComponent implements OnInit, OnDestroy {
   public ExplorerViewMode = ExplorerViewMode;
@@ -27,7 +17,7 @@ export class ExplorerComponent implements OnInit, OnDestroy {
   public dirpath: string;
   public selectedFiles: Set<FileStat> = new Set();
 
-  public viewMode: ExplorerViewMode = ExplorerViewMode.GRID;
+  public viewMode: ExplorerViewMode;
 
   @ViewChild('breadcrumb', { read: BreadcrumbComponent, static: true })
   public breadcrumb: BreadcrumbComponent;
@@ -41,6 +31,8 @@ export class ExplorerComponent implements OnInit, OnDestroy {
   }
 
   public ngOnInit(): void {
+    const viewMode = window.localStorage.getItem('explorer-view-mode');
+    this.viewMode = viewMode ? (Number.parseInt(viewMode) ?? ExplorerViewMode.GRID) : ExplorerViewMode.GRID;
     this.subscriptions.push(
       this.activatedRoute.paramMap
         .pipe(tap(paramMap => {
@@ -56,6 +48,11 @@ export class ExplorerComponent implements OnInit, OnDestroy {
 
   public onBreadcrumbClick(path: string) {
     this.router.navigate(['/explorer', Base64.encode(path)])
+  }
+
+  public onToggleViewMode(mode: ExplorerViewMode) {
+    this.viewMode = mode;
+    window.localStorage.setItem('explorer-view-mode', `${ mode }`);
   }
 
   public onSelectedFilesChange(selectedFiles: Set<FileStat>) {

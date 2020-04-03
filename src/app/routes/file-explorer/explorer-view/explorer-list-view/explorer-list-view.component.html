@@ -3,14 +3,14 @@
   <table mat-table [dataSource]="fileStats">
     <ng-container *ngFor="let column of displayedColumns;">
       <ng-container *ngIf="column === 'select'" matColumnDef="select">
-        <th mat-header-cell *matHeaderCellDef>
+        <th mat-header-cell *matHeaderCellDef style="text-align: left; width: 32px;">
           <mat-checkbox
             (change)="$event ? masterToggle() : null"
             [checked]="selection.hasValue() && isAllSelected()"
             [indeterminate]="selection.hasValue() && !isAllSelected()">
           </mat-checkbox>
         </th>
-        <td mat-cell *matCellDef="let row">
+        <td mat-cell *matCellDef="let row" style="text-align: left;">
           <mat-checkbox [checked]="selection.isSelected(row)"
             (click)="$event.stopPropagation()"
             (change)="$event ? selection.toggle(row) : null">
@@ -18,8 +18,24 @@
         </td>
       </ng-container>
       <ng-container *ngIf="column !== 'select'" [matColumnDef]="column">
-        <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
-        <td mat-cell *matCellDef="let file">{{ file[column] }}</td>
+        <ng-container [ngSwitch]="column">
+          <ng-container *ngSwitchCase="'name'">
+            <th mat-header-cell *matHeaderCellDef>名称</th>
+            <td mat-cell *matCellDef="let file">{{ file[column] }}</td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'size'">
+            <th mat-header-cell *matHeaderCellDef style="width: 82px; text-align: right;">大小</th>
+            <td mat-cell *matCellDef="let file" style="text-align: right;">{{ file[column] | humanReadable }}</td>
+          </ng-container>
+          <ng-container *ngSwitchCase="'modifyTime'">
+            <th mat-header-cell *matHeaderCellDef style="text-align: right; width: 82px;">修改时间</th>
+            <td mat-cell *matCellDef="let file" style="text-align: right;">{{ file[column] | fromNow }}</td>
+          </ng-container>
+          <ng-container *ngSwitchDefault>
+            <th mat-header-cell *matHeaderCellDef>{{ column }}</th>
+            <td mat-cell *matCellDef="let file">{{ file[column] }}</td>
+          </ng-container>
+        </ng-container>
       </ng-container>
     </ng-container>
 
