@@ -39,7 +39,7 @@
     "js-cookie": "^2.2.1",
     "jwt-decode": "^2.2.0",
     "lodash.get": "^4.4.2",
-    "marked": "^0.8.2",
+    "marked": "^4.0.10",
     "md5": "^2.2.1",
     "moment": "^2.24.0",
     "path-browserify": "^1.0.1",
